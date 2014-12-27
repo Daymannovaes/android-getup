@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Getup</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="scanButton">scan nfc tag</string>
+    <string name="setButton">set alarm</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="put_nfc">put your nfc here</string>
+    <string name="seeAlarms">See alarms</string>
+    <string name="title_activity_alarm_list">AlarmListActivity</string>
+
+</resources>

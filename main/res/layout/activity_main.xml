@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="me.dayman.nfc.MainActivity" >
+
+    <Button
+        android:id="@+id/setButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/setButton"
+        android:onClick="onSetAlarmClick" />
+
+    <Button
+        android:id="@+id/seeAlarms"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/setButton"
+        android:layout_below="@+id/setButton"
+        android:text="@string/seeAlarms"
+        android:onClick="onSeeAlarmsClick" />
+    <Button
+        android:id="@+id/scanButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/seeAlarms"
+        android:layout_below="@+id/seeAlarms"
+        android:text="@string/scanButton"
+        android:onClick="onScanClick" />
+
+    <TextView
+        android:id="@+id/masterNfc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scanButton"
+        android:layout_below="@+id/scanButton"
+        android:text="" />
+
+</RelativeLayout>
