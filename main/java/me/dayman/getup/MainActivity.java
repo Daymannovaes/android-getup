@@ -2,14 +2,15 @@ package me.dayman.getup;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,7 +24,7 @@ import me.dayman.getup.repository.Repository;
 import me.dayman.getup.repository.logic.AlarmLogic;
 import me.dayman.getup.repository.logic.MasterDeactivator;
 import me.dayman.getup.repository.models.Alarm;
-import me.dayman.getup.repository.models.DeactivatorModel;
+import me.dayman.getup.repository.models.Deactivator;
 import me.dayman.getup.util.Dispatcher;
 import me.dayman.getup.util.Util;
 
@@ -55,33 +56,23 @@ public class MainActivity extends Activity {
     }
 
     private void buildDispatcher() {
-        dispatcher = new Dispatcher(this, buildAdapter(), buildPendindIntent());
-    }
-
-    private NfcAdapter buildAdapter() {
-        return NfcAdapter.getDefaultAdapter(this);
-    }
-
-    private PendingIntent buildPendindIntent() {
-        return PendingIntent.getActivity(this, 0,
-                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        dispatcher = new Dispatcher(this);
     }
 
     public void buildAlarmDialog() {
         final TimePicker timePicker = new TimePicker(this);
+        final CheckBox checkbox = new CheckBox(this);
 
         alarmDialog = new MaterialDialog.Builder(this)
                 .customView(timePicker)
+                //.customView(checkbox)
                 .title("Pick the time")
                 .negativeText(android.R.string.cancel)
                 .positiveText(android.R.string.ok)
                 .callback(new MaterialDialog.SimpleCallback() {
                     @Override
                     public void onPositive(MaterialDialog materialDialog) {
-                        AlarmLogic.setAlarmByView(timePicker, am, MainActivity.this);
-
-                        //sendBroadcast(it);
-
+                        AlarmLogic.setAlarmByView(timePicker, checkbox, am, MainActivity.this);
                     }
                 })
                 .build();
@@ -105,7 +96,7 @@ public class MainActivity extends Activity {
     public void initializeRepository() {
         DatabaseSpec database = PersistenceConfig.registerSpec(1);
         database.match(Alarm.class);
-        database.match(DeactivatorModel.class);
+        database.match(Deactivator.class);
 
         Repository.setAdapter(Persistence.getAdapter(this));
     }
@@ -132,9 +123,18 @@ public class MainActivity extends Activity {
         String nfcId = Util.Nfc.getNfcId(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
 
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
-            MasterDeactivator.setDeactivator(nfcId);
-            setNfcView(nfcId);
+            saveNewNfcId(nfcId);
         }
+    }
+
+    private void saveNewNfcId(String nfcId) {
+        MasterDeactivator.setDeactivator(nfcId);
+        setNfcView(nfcId);
+
+        SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
+        editor.putString("masterDeactivator", nfcId);
+
+        editor.apply();
     }
 
     public void onScanClick(View v) {

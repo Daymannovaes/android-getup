@@ -6,18 +6,19 @@ import me.dayman.getup.repository.Repository;
  * Created by Daymannovaes on 23/12/2014.
  */
 public class MasterDeactivator {
-    private static Deactivator deactivator;
+    private static DeactivatorLogic deactivator;
 
     public static void setDeactivator(String nfcId) {
-        MasterDeactivator.deactivator = new Deactivator(nfcId);
+        MasterDeactivator.deactivator = new DeactivatorLogic(nfcId);
 
-        Repository.getAdapter().store(deactivator);
+        //@todo
+        //Repository.getAdapter().store(deactivator);
     }
-    public static void setDeactivator(Deactivator deactivator) {
+    public static void setDeactivator(DeactivatorLogic deactivator) {
         MasterDeactivator.deactivator = deactivator;
     }
 
-    public static boolean match(String type, String id) {
-        return deactivator.match(type, id);
+    public static boolean match(String id) {
+        return deactivator.matchSelf(id);
     }
 }

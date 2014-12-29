@@ -3,10 +3,10 @@ package me.dayman.getup.repository.logic;
 /**
  * Created by Daymannovaes on 23/12/2014.
  */
-public class Deactivator {
+public class DeactivatorLogic {
     private String id;
 
-    public Deactivator(String nfcId) {
+    public DeactivatorLogic(String nfcId) {
         this.id = nfcId;
     }
 
@@ -24,6 +24,6 @@ public class Deactivator {
     }
 
     private boolean matchNfc(String id) {
-        return (matchSelf(id) || MasterDeactivator.match("nfc", id));
+        return (matchSelf(id) || MasterDeactivator.match(id));
     }
 }

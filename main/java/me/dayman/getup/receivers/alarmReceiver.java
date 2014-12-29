@@ -5,9 +5,11 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import me.dayman.getup.R;
+import me.dayman.getup.activities.AlarmActivity;
 
 /**
  * Created by Daymannovaes on 23/12/2014.
@@ -16,7 +18,13 @@ public class alarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, "deu certo", Toast.LENGTH_LONG).show();
-        createNotification(context);
+
+        Intent it = new Intent(context, AlarmActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        context.startActivity(it);
+
+        //createNotification(context);
     }
 
     private static void createNotification(Context context) {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.util.List;
@@ -42,11 +43,11 @@ public class AlarmListAdapter extends BaseAdapter {
         View view = inflater.inflate(R.layout.activity_alarm_list, null);
 
         EditText alarmValue = (EditText) view.findViewById(R.id.list_alarmValue);
-        EditText repeat = (EditText) view.findViewById(R.id.list_repeat);
+        CheckBox repeat = (CheckBox) view.findViewById(R.id.list_repeat);
         EditText type = (EditText) view.findViewById(R.id.list_type);
 
         alarmValue.setText(alarm.toString());
-        repeat.setText(alarm.isRepeat() ? "yes" : "no");
+        repeat.setChecked(alarm.isRepeat());
         type.setText("nfc");
 
         return view;

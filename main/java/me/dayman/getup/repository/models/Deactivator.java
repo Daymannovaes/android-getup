@@ -3,7 +3,7 @@ package me.dayman.getup.repository.models;
 /**
  * Created by Daymannovaes on 23/12/2014.
  */
-public class DeactivatorModel {
+public class Deactivator {
     private String id;
     private String type; //nfc, image, etc...
 
