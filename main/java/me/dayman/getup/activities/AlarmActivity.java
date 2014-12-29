@@ -67,7 +67,7 @@ public class AlarmActivity extends Activity {
     }
 
     private void handleCorrectNfcId() {
-        Toast.makeText(this, "Your nfc id are correct", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Your nfc id is correct", Toast.LENGTH_SHORT).show();
 
         finish();
     }

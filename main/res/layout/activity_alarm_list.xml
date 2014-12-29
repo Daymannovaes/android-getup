@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="Repeat: " />
 
-        <EditText
+        <CheckBox
             android:id="@+id/list_repeat"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />

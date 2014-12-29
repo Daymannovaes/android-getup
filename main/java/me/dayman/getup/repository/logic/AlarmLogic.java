@@ -4,13 +4,16 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
 
+import me.dayman.getup.R;
 import me.dayman.getup.repository.Repository;
 import me.dayman.getup.repository.models.Alarm;
 
@@ -18,19 +21,24 @@ import me.dayman.getup.repository.models.Alarm;
  * Created by Daymannovaes on 23/12/2014.
  */
 public class AlarmLogic {
-    public static void setAlarmByView(TimePicker timePicker, CheckBox checkbox, AlarmManager am, Context context) {
+    public static void setAlarmByView(View alarmPicker, Context context) {
+        TimePicker timePicker = (TimePicker)alarmPicker.findViewById(R.id.timepicker);
+        CheckBox checkbox = (CheckBox)alarmPicker.findViewById(R.id.repeat);
+
         int hour = timePicker.getCurrentHour();
         int minute = timePicker.getCurrentMinute();
         boolean repeat = checkbox.isChecked();
 
-        setAndroidAlarm(hour, minute, am, context);
+        setAndroidAlarm(hour, minute, context);
         setDatabaseAlarm(hour, minute, repeat);
     }
 
-    private static void setAndroidAlarm(int hour, int minute, AlarmManager am, Context context) {
+    private static void setAndroidAlarm(int hour, int minute, Context context) {
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Calendar c = Calendar.getInstance();
 
         Intent it = new Intent("execute_alarm");
+        //@todo change to getActivity
         PendingIntent p = PendingIntent.getBroadcast(context, 0, it, 0);
 
         c.setTimeInMillis(System.currentTimeMillis());

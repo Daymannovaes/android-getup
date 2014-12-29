@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -60,19 +61,18 @@ public class MainActivity extends Activity {
     }
 
     public void buildAlarmDialog() {
-        final TimePicker timePicker = new TimePicker(this);
-        final CheckBox checkbox = new CheckBox(this);
+        LayoutInflater inflater =  (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View alarmPicker = inflater.inflate(R.layout.alarm_time_picker, null);
 
         alarmDialog = new MaterialDialog.Builder(this)
-                .customView(timePicker)
-                //.customView(checkbox)
+                .customView(alarmPicker)
                 .title("Pick the time")
                 .negativeText(android.R.string.cancel)
                 .positiveText(android.R.string.ok)
                 .callback(new MaterialDialog.SimpleCallback() {
                     @Override
                     public void onPositive(MaterialDialog materialDialog) {
-                        AlarmLogic.setAlarmByView(timePicker, checkbox, am, MainActivity.this);
+                        AlarmLogic.setAlarmByView(alarmPicker, MainActivity.this);
                     }
                 })
                 .build();

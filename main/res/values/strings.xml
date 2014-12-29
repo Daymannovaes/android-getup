@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Getup</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Getup</string>
     <string name="scanButton">scan nfc tag</string>
     <string name="setButton">set alarm</string>
     <string name="title_activity_alarm">AlarmActivity</string>
