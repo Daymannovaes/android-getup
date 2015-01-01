@@ -20,7 +20,7 @@ public class DeactivatorLogic {
     }
 
     public boolean matchSelf(String id) {
-        return this.id == id;
+        return this.id.equals(id);
     }
 
     private boolean matchNfc(String id) {
