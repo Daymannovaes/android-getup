@@ -14,7 +14,7 @@ public class Dispatcher {
     private NfcAdapter adapter;
     private PendingIntent pendingIntent;
 
-    public Dispatcher(Activity activity) {
+    protected Dispatcher(Activity activity) {
         this.activity = activity;
         this.adapter = NfcAdapter.getDefaultAdapter(activity);
         this.pendingIntent = buildPendindIntent(activity);

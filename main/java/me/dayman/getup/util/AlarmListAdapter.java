@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.util.List;
 
 import me.dayman.getup.R;
+import me.dayman.getup.repository.Repository;
 import me.dayman.getup.repository.models.Alarm;
 
 /**
@@ -36,8 +38,8 @@ public class AlarmListAdapter extends BaseAdapter {
         return list.get(position).getId();
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Alarm alarm = list.get(position);
+    public View getView(final int position, final View convertView, ViewGroup parent) {
+        final Alarm alarm = list.get(position);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.activity_alarm_list, null);
@@ -45,6 +47,15 @@ public class AlarmListAdapter extends BaseAdapter {
         EditText alarmValue = (EditText) view.findViewById(R.id.list_alarmValue);
         CheckBox repeat = (CheckBox) view.findViewById(R.id.list_repeat);
         EditText type = (EditText) view.findViewById(R.id.list_type);
+
+        Button delete = (Button) view.findViewById(R.id.list_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.remove(position);
+                Repository.getAdapter().delete(alarm);
+            }
+        });
 
         alarmValue.setText(alarm.toString());
         repeat.setChecked(alarm.isRepeat());
