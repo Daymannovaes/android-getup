@@ -54,6 +54,7 @@ public class AlarmListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 list.remove(position);
                 Repository.getAdapter().delete(alarm);
+                notifyDataSetChanged();
             }
         });
 

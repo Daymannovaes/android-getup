@@ -33,7 +33,6 @@ import me.dayman.getup.util.Util;
 public class MainActivity extends Activity {
     private Dispatcher dispatcher;
     private MaterialDialog nfcDialog, alarmDialog;
-    private AlarmManager am;
     private boolean dialogIsOpened = false;
 
     @Override
@@ -43,54 +42,22 @@ public class MainActivity extends Activity {
         buildMainFields();
         initializeRepository();
 
-        am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-
         setContentView(R.layout.activity_main);
     }
 
     // ---- BUILDER METHODS ---------------------------
     private void buildMainFields() {
-        buildNfcDialog();
-        buildAlarmDialog();
-
         buildDispatcher();
+        buildDialogs();
     }
 
     private void buildDispatcher() {
-        dispatcher = new Dispatcher(this);
+        dispatcher = new Util.Dispatcher(this);
     }
 
-    public void buildAlarmDialog() {
-        LayoutInflater inflater =  (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View alarmPicker = inflater.inflate(R.layout.alarm_time_picker, null);
-
-        alarmDialog = new MaterialDialog.Builder(this)
-                .customView(alarmPicker)
-                .title("Pick the time")
-                .negativeText(android.R.string.cancel)
-                .positiveText(android.R.string.ok)
-                .callback(new MaterialDialog.SimpleCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog materialDialog) {
-                        AlarmLogic.setAlarmByView(alarmPicker, MainActivity.this);
-                    }
-                })
-                .build();
-    }
-
-    public void buildNfcDialog() {
-        nfcDialog = new MaterialDialog.Builder(this)
-                .title("Master deactivator")
-                .content("scan your nfc tag")
-                .negativeText(android.R.string.cancel)
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        dispatcher.disableForegroundDispatch();
-
-                        dialogIsOpened = false;
-                    }
-                }).build();
+    public void buildDialogs() {
+        alarmDialog = Util.DialogBuilder.alarm(this);
+        nfcDialog = Util.DialogBuilder.nfc(this, dispatcher);
     }
 
     public void initializeRepository() {
@@ -100,11 +67,6 @@ public class MainActivity extends Activity {
 
         Repository.setAdapter(Persistence.getAdapter(this));
     }
-
-    protected void setAlarmByView(View findViewById) {
-        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-    }
-
 // ----------------------------------------------
 // ----------------------------------------------
 
@@ -131,7 +93,7 @@ public class MainActivity extends Activity {
         MasterDeactivator.setDeactivator(nfcId);
         setNfcView(nfcId);
 
-        SharedPreferences.Editor editor = getSharedPreferences("Preferences", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences("Preferences", Context.MODE_PRIVATE).edit();
         editor.putString("masterDeactivator", nfcId);
 
         editor.apply();

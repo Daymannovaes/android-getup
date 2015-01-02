@@ -25,7 +25,7 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        dispatcher = new Dispatcher(this);
+        dispatcher = new Util.Dispatcher(this);
 
        /* Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
