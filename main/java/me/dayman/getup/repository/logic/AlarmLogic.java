@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import me.dayman.getup.R;
+import me.dayman.getup.activities.AlarmActivity;
 import me.dayman.getup.repository.Repository;
 import me.dayman.getup.repository.models.Alarm;
 
@@ -35,19 +36,24 @@ public class AlarmLogic {
 
     private static void setAndroidAlarm(int hour, int minute, Context context) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Calendar c = Calendar.getInstance();
+        Calendar c = getPreparedCalendar(hour, minute);
 
-        Intent it = new Intent("execute_alarm");
-        //@todo change to getActivity
-        PendingIntent p = PendingIntent.getBroadcast(context, 0, it, 0);
+        Intent it = new Intent(context, AlarmActivity.class);
+        PendingIntent p = PendingIntent.getActivity(context, 0, it, 0);
+
+        am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), p);
+
+        Toast.makeText(context, "Alarm set for " + formatZero(hour) + ":" + formatZero(minute), Toast.LENGTH_SHORT).show();
+    }
+    private static Calendar getPreparedCalendar(int hour, int minute) {
+        Calendar c = Calendar.getInstance();
 
         c.setTimeInMillis(System.currentTimeMillis());
         c.set(Calendar.HOUR_OF_DAY, hour);
         c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
 
-        am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), p);
-
-        Toast.makeText(context, "Alarm set for " + hour + ":" + minute, Toast.LENGTH_SHORT).show();
+        return c;
     }
 
 

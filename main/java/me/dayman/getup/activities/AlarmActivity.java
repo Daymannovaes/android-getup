@@ -30,6 +30,8 @@ public class AlarmActivity extends Activity {
        /* Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play(); */
+
+        Toast.makeText(this, "Finja um alarme tocando nesse momento", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -64,6 +66,8 @@ public class AlarmActivity extends Activity {
     private void handleNfcIntent(String nfcId) {
         if(MasterDeactivator.match(nfcId))
             handleCorrectNfcId();
+        else
+            Toast.makeText(this, "Incorrect nfc id", Toast.LENGTH_SHORT).show();
     }
 
     private void handleCorrectNfcId() {
