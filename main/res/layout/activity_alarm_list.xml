@@ -19,6 +19,7 @@
             android:text="Alarm: " />
 
         <EditText
+            android:inputType="none"
             android:id="@+id/list_alarmValue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
@@ -33,10 +34,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Repeat: " />
+            android:text="Type: " />
 
-        <CheckBox
-            android:id="@+id/list_repeat"
+        <EditText
+            android:inputType="none"
+            android:id="@+id/list_type"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -50,27 +52,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Type: " />
+            android:text="Repeat: " />
 
-        <EditText
-            android:id="@+id/list_type"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/list_4"
-        android:layout_below="@id/list_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-        <Button
+        <CheckBox
+            android:id="@+id/list_repeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete" />
+            android:clickable="false" />
 
-        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/list_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_below="@+id/list_2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

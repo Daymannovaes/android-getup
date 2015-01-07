@@ -37,14 +37,6 @@
             android:label="@string/title_activity_alarm" >
         </activity>
 
-        <receiver android:name=".receivers.alarmReceiver" >
-            <intent-filter>
-                <action android:name="execute_alarm" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".activities.AlarmListActivity"
             android:label="@string/title_activity_alarm_list" >
