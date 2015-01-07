@@ -61,11 +61,15 @@ public class MainActivity extends Activity {
     }
 
     public void initializeRepository() {
-        DatabaseSpec database = PersistenceConfig.registerSpec(1);
-        database.match(Alarm.class);
-        database.match(Deactivator.class);
+        try {
+            DatabaseSpec database = PersistenceConfig.registerSpec(1);
+            database.match(Alarm.class);
+            database.match(Deactivator.class);
 
-        Repository.setAdapter(Persistence.getAdapter(this));
+            Repository.setAdapter(Persistence.getAdapter(this));
+        } catch (Exception e) {
+
+        }
     }
 // ----------------------------------------------
 // ----------------------------------------------
