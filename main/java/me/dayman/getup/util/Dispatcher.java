@@ -17,10 +17,10 @@ public class Dispatcher {
     protected Dispatcher(Activity activity) {
         this.activity = activity;
         this.adapter = NfcAdapter.getDefaultAdapter(activity);
-        this.pendingIntent = buildPendindIntent(activity);
+        this.pendingIntent = buildPendingIntent(activity);
     }
 
-    private PendingIntent buildPendindIntent(Context context) {
+    private PendingIntent buildPendingIntent(Context context) {
         return PendingIntent.getActivity(context, 0,
                 new Intent(context, context.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
     }
