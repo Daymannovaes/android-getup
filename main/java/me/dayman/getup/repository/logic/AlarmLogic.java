@@ -38,7 +38,7 @@ public class AlarmLogic {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Calendar c = getPreparedCalendar(hour, minute);
 
-        Intent it = new Intent(context, AlarmActivity.class);
+        Intent it = new Intent("me.dayman.getup.EXECUTE_ALARM");
         PendingIntent p = PendingIntent.getActivity(context, 0, it, 0);
 
         am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), p);

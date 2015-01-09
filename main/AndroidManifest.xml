@@ -35,6 +35,11 @@
         <activity
             android:name=".activities.AlarmActivity"
             android:label="@string/title_activity_alarm" >
+            <intent-filter>
+                <action android:name="me.dayman.getup.EXECUTE_ALARM" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity
